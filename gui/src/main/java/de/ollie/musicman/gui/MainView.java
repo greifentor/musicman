@@ -1,12 +1,5 @@
 package de.ollie.musicman.gui;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.accordion.Accordion;
-import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PreserveOnRefresh;
@@ -17,6 +10,7 @@ import de.ollie.musicman.gui.events.Event;
 import de.ollie.musicman.gui.events.EventListener;
 import de.ollie.musicman.gui.events.EventProvider;
 import de.ollie.musicman.gui.events.EventType;
+import de.ollie.musicman.service.PlayerService;
 import de.ollie.musicman.service.UserService;
 
 /**
@@ -32,13 +26,13 @@ import de.ollie.musicman.service.UserService;
 public class MainView extends VerticalLayout implements EventListener {
 
 	private final EventProvider eventProvider;
+	private final PlayerService playerService;
 
-	private AccordionPanel panelWarnings = new AccordionPanel();
-
-	public MainView(EventProvider eventProvider, UserService userService) {
+	public MainView(EventProvider eventProvider, PlayerService playerService, UserService userService) {
 		super();
 		this.eventProvider = eventProvider;
 		this.eventProvider.addListener(this);
+		this.playerService = playerService;
 		LoginView loginView = new LoginView(eventProvider, userService);
 		// addClassName("centered-content");
 		add( //
@@ -50,6 +44,7 @@ public class MainView extends VerticalLayout implements EventListener {
 	public void eventDetected(Event event) {
 		if (event.getType() == EventType.USER_ACCEPTED) {
 			removeAll();
+			add(new PlayerView(playerService));
 		}
 	}
 
