@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+				http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet author="OlLie" id="initial-db-001">
+		<createTable tableName="PLAY_LIST">
+			<column name="ID" type="BIGINT" autoIncrement="true" >
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="NAME" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="OlLie" id="initial-db-002">
+		<createSequence 
+			incrementBy="1"
+			sequenceName="PLAY_LIST_IDS"
+			startValue="10"/>
+	</changeSet>
+	<changeSet author="OlLie" id="initial-db-003">
+		<createTable tableName="PLAY_LIST_ENTRY">
+			<column name="ID" type="BIGINT" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="PLAY_LIST" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NAME" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PATH" type="VARCHAR(2000)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="OlLie" id="initial-db-005">
+		<createSequence 
+			incrementBy="1"
+			sequenceName="PLAY_LIST_ENTRY_IDS"
+			startValue="10"/>
+	</changeSet>
+	<changeSet author="OlLie" id="initial-db-006">
+		<addForeignKeyConstraint baseColumnNames="PLAY_LIST"
+			baseTableName="PLAY_LIST_ENTRY"
+			constraintName="FK_PLAY_LIST_ENTRY_PLAY_LIST_TO_PLAY_LIST_ID"
+			referencedColumnNames="ID"
+			referencedTableName="PLAY_LIST"/>
+	</changeSet>
+</databaseChangeLog>

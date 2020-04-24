@@ -14,7 +14,7 @@ import de.ollie.musicman.service.UserService;
 @Named
 public class UserServiceImpl implements UserService {
 
-	@Value("${musicman.password}")
+	@Value("${musicman.password:ncc1701}")
 	private String password;
 
 	@Override

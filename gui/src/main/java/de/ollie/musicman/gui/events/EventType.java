@@ -7,6 +7,7 @@ package de.ollie.musicman.gui.events;
  */
 public enum EventType {
 
+	PLAY_LIST_UPDATED, //
 	USER_ACCEPTED;
 
 }
